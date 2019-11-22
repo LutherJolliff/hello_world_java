@@ -6,8 +6,10 @@ pipeline {
     }
     stages {
         stage('Sonarqube Scan') {
-            withSonarQubeEnv() {
-                sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar'
+            steps {
+                withSonarQubeEnv() {
+                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar'
+                }
             }
         }
         stage('Clean Packages') {
