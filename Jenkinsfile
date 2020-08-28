@@ -5,13 +5,13 @@ pipeline {
         }
     }
     stages {
-        // stage('Sonarqube Scan') {
-        //     steps {
-        //         withSonarQubeEnv(installationName: 'AWS-Sonarqube') {
-        //             sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar'
-        //         }
-        //     }
-        // }
+        stage('Sonarqube Scan') {
+            steps {
+                withSonarQubeEnv(installationName: 'AWS-Sonarqube') {
+                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.2170:sonar'
+                }
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
