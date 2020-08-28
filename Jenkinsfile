@@ -13,7 +13,7 @@ pipeline {
         STATUS_SUCCESS = ''
         JENKINS_URL = "${JENKINS_URL}"
         JOB_NAME = "${JOB_NAME}"
-        SONAR_TOKEN = credentials('govcloud-sonarqube')
+        SONAR_TOKEN = credentials('shipyard-sonarqube')
         SONAR_PROJECT = 'shipyard-project'
         SONAR_SOURCE = 'src'
     }
