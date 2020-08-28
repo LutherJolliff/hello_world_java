@@ -5,9 +5,9 @@ pipeline {
         }
     }
     stages {
-        stage('Sonarqube Scan') {
+        stage('Cynerge Sonarqube') {
             steps {
-                withSonarQubeEnv(installationName: 'AWS-Sonarqube') {
+                withSonarQubeEnv(installationName: 'cynerge-sonarqube') {
                     sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.2170:sonar'
                 }
             }
