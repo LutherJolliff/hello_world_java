@@ -5,18 +5,26 @@ pipeline {
         }
     }
     stages {
-        stage('Sonarqube Scan') {
+        // stage('Sonarqube Scan') {
+        //     steps {
+        //         withSonarQubeEnv(installationName: 'AWS-Sonarqube') {
+        //             sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar'
+        //         }
+        //     }
+        // }
+        stage('Build') {
             steps {
-                withSonarQubeEnv(installationName: 'AWS-Sonarqube') {
-                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.6.0.1398:sonar'
-                }
+                sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('Clean Packages') {
+        stage('Test') {
             steps {
-                sh 'mvn --version'
-                sh 'java --version'
-                sh 'mvn clean package'
+                sh 'mvn test'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
             }
         }
     }
