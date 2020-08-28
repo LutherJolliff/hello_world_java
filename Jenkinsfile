@@ -5,10 +5,13 @@ pipeline {
         }
     }
     stages {
-        stage('cynerge-sonarqube') {
+        stage('Sonarqube Analysis') {
+            environment {
+                scannerHome = tool 'cynerge-sonarqube'
+            }
             steps {
-                withSonarQubeEnv(installationName: 'Cynerge Sonarqube') {
-                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.2170:sonar'
+                withSonarQubeEnv('Cynerge Sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT -Dsonar.sources=$SONAR_SOURCE"
                 }
             }
         }
