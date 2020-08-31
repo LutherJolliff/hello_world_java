@@ -15,26 +15,16 @@ pipeline {
         JOB_NAME = "${JOB_NAME}"
         SONAR_TOKEN = credentials('shipyard-sonarqube')
         SONAR_PROJECT = 'shipyard-project'
-        SONAR_SOURCE = 'java_webapp/src/main/java/com/puppet/sample/App.java java_webapp/src/test/java/com/puppet/sample/TestRoutes.java'
+        SONAR_SOURCE = '.'
     }
 
     stages {
-        stage('Sonarqube Analysis') {
-            environment {
-                scannerHome = tool 'cynerge-sonarqube'
-            }
-            steps {
-                withSonarQubeEnv('Cynerge Sonarqube') {
-                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT -Dsonar.sources=$SONAR_SOURCE"
-                }
-            }
-        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('Test') {
+        stage('Unit Testing') {
             steps {
                 sh 'mvn test'
                 sh 'ls'
@@ -43,6 +33,16 @@ pipeline {
             post {
                 always {
                     junit "java_webapp*/target/surefire-reports/*.xml"
+                }
+            }
+        }
+        stage('Sonarqube Analysis') {
+            environment {
+                scannerHome = tool 'cynerge-sonarqube'
+            }
+            steps {
+                withSonarQubeEnv('Cynerge Sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT -Dsonar.sources=$SONAR_SOURCE"
                 }
             }
         }
