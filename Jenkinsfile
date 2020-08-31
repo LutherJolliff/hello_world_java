@@ -15,7 +15,7 @@ pipeline {
         SONAR_TOKEN = credentials('shipyard-sonarqube')
         SONAR_PROJECT = 'shipyard-project-java'
         SONAR_SOURCE = 'java_webapp/src/main/java/com/puppet/sample/App.java'
-        SONAR_REPORTS = 'java_webapp/target/surefire-reports/*.xml'
+        SONAR_REPORTS = 'java_webapp/target/surefire-reports'
     }
 
     stages {
