@@ -9,13 +9,13 @@ pipeline {
         EMAIL_RECIPIANTS = 'ljolliff@cynerge.com'
         NEXUS_USER = credentials('nexus-user')
         NEXUS_PASS = credentials('nexus-pass')
-        APP_SOURCE = './src/**/**/**/**.html'
         STATUS_SUCCESS = ''
         JENKINS_URL = "${JENKINS_URL}"
         JOB_NAME = "${JOB_NAME}"
         SONAR_TOKEN = credentials('shipyard-sonarqube')
         SONAR_PROJECT = 'shipyard-project'
-        SONAR_SOURCE = '.'
+        SONAR_SOURCE = 'java_webapp/src/main/java/com/puppet/sample/App.java'
+        SONAR_TESTS = 'java_webapp/src/test/java/com/puppet/sample/TestRoutes.java'
     }
 
     stages {
@@ -42,7 +42,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('Cynerge Sonarqube') {
-                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT -Dsonar.sources=$SONAR_SOURCE"
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT -Dsonar.sources=$SONAR_SOURCE -Dsonar.tests=$SONAR_TESTS"
                 }
             }
         }
