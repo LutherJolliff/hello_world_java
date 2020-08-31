@@ -15,7 +15,7 @@ pipeline {
         JOB_NAME = "${JOB_NAME}"
         SONAR_TOKEN = credentials('shipyard-sonarqube')
         SONAR_PROJECT = 'shipyard-project'
-        SONAR_SOURCE = 'java_webapp/src/main/java/com/puppet/sample/App.java'
+        SONAR_SOURCE = 'java_webapp/src/main/java/com/puppet/sample/App.java java_webapp/src/test/java/com/puppet/sample/TestRoutes.java'
     }
 
     stages {
