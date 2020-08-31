@@ -13,7 +13,7 @@ pipeline {
         JENKINS_URL = "${JENKINS_URL}"
         JOB_NAME = "${JOB_NAME}"
         SONAR_TOKEN = credentials('shipyard-sonarqube')
-        SONAR_PROJECT = 'shipyard-project'
+        SONAR_PROJECT = 'shipyard-project-java'
         SONAR_SOURCE = 'java_webapp/src/main/java/com/puppet/sample/App.java'
         SONAR_TESTS = 'java_webapp/src/test/java/com/puppet/sample/TestRoutes.java'
     }
