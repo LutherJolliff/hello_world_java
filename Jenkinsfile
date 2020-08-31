@@ -15,7 +15,7 @@ pipeline {
         SONAR_TOKEN = credentials('shipyard-sonarqube')
         SONAR_PROJECT = 'shipyard-project-java'
         SONAR_SOURCE = 'java_webapp/src/main/java/com/puppet/sample/App.java'
-        SONAR_TESTS = 'java_webapp/pom.xml'
+        SONAR_REPORTS = 'java_webapp/target/surefire-reports'
     }
 
     stages {
@@ -42,7 +42,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('Cynerge Sonarqube') {
-                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT -Dsonar.sources=$SONAR_SOURCE -Dsonar.tests=$SONAR_TESTS"
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT -Dsonar.sources=$SONAR_SOURCE -Dsonar.junit.reportPaths=$SONAR_REPORTS"
                 }
             }
         }
