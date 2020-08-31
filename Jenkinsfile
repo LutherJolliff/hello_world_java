@@ -42,7 +42,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('Cynerge Sonarqube') {
-                    sh 'ls /java_webapp/target'
+                    sh 'ls /java_webapp'
                     sh "${scannerHome}/bin/sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT -Dsonar.sources=$SONAR_SOURCE -Dsonar.junit.reportPaths=$SONAR_REPORTS"
                 }
             }
